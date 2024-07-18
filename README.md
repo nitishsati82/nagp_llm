@@ -16,7 +16,7 @@ This repository contains a QA bot for PDF files. The bot extracts text from PDF 
 - Extract text from PDF files.
 - Segment text into chunks.
 - Generate embeddings using a Sentence Transformer-based model.
-- Store and retrieve embeddings from a vector database (e.g., Faiss).
+- Store and retrieve embeddings from a vector database (PineCone).
 - Refine user queries using a GPT model.
 - Retrieve relevant text chunks based on similarity scores.
 
@@ -24,10 +24,10 @@ This repository contains a QA bot for PDF files. The bot extracts text from PDF 
 - Python 3.8+
 - PyMuPDF
 - SentenceTransformers
-- Faiss
+- PineCone (Api key and index)
 - Hugging Face Transformers
-- OpenAI GPT-3/4 API access
-- Flask (for API deployment)
+- GPT 2
+- Google Colab
 
 ## Installation
 1. Clone the repository:
@@ -44,8 +44,9 @@ This repository contains a QA bot for PDF files. The bot extracts text from PDF 
 
 3. Install the required packages:
     ```bash
-    pip install -r requirements.txt
-    ```
+        # Install necessary libraries
+        !pip install PyMuPDF sentence-transformers pinecone-client
+        !pip install transformers
 
 ## Usage
 ### Extract Text from PDF
@@ -55,3 +56,37 @@ from your_module import extract_text_from_pdf
 
 text = extract_text_from_pdf('path_to_your_pdf.pdf')
 print(text)
+
+### Segment Text into Chunks
+To generate segment text into chunks below method is used:
+```python
+text_chunks = chunk_text_by_sentence(text)
+
+### Generate Embeddings
+To generate embeddings from text chunks, use the following function:
+model = SentenceTransformer('all-MiniLM-L6-v2')
+embeddings = generate_embeddings(text_chunks)
+
+### Store Embeddings
+To store and retrieve embeddings, use the following function:
+result = save_embedding(query)
+
+### Retrieve Embeddings
+To Retrieve embeddings, use the following function:
+result = save_embedding(query)
+
+### Integrate GPT model
+To integrate GPT model, use the following code:
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+# Load pre-trained GPT-2 model and tokenizer
+model_name = "gpt2"
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+gpt_model = GPT2LMHeadModel.from_pretrained(model_name)
+
+### Query the Vector Database and Get refine query to perform search
+To query integrate GPT model and vector db,  use the following functions:
+To refine query using gpt model below function can be used:
+refine_query_more(userQuery)
+
+To query vector db below function can be used:
+query_pinecone(userQuery)
