@@ -1,6 +1,8 @@
 # QA Bot for PDF Files
 
+
 This repository contains a QA bot for PDF files. The bot extracts text from PDF files, generates embeddings, and stores them in a vector database. Users can query the system, which retrieves relevant text chunks based on similarity scores. The system also integrates with a GPT model for refining user queries.
+### Github code link: https://github.com/nitishsati82/nagp_llm
 
 ## Table of Contents
 1. [Features](#features)
