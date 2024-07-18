@@ -10,9 +10,7 @@ This repository contains a QA bot for PDF files. The bot extracts text from PDF 
 3. [Installation](#installation)
 4. [Usage](#usage)
 5. [System Architecture](#system-architecture)
-6. [Deployment](#deployment)
-7. [Execution](#execution)
-8. [Documentation](#documentation)
+6. [Execution](#execution)
 
 ## Features
 - Extract text from PDF files.
@@ -97,4 +95,32 @@ refine_query_more(userQuery)
 ##### To query vector db below function can be used:
 ```python
 query_pinecone(userQuery)
+```
+
+## System Architecture
+The system architecture consists of the following components:
+1. User Query (Natural Language)
+2. Text Extraction from PDF (PyMuPDF)
+3. Text Chunking and Embeddings (Sentence Transformer-based Model)
+4. Vector Database (PineCone)
+5. Similarity Matching and Retrieval (Retrieve Relevant Text Chunks)
+6. Query Refinement (GPT Model)
+7. Final Answer to User
+
+
+## Execution
+1. Extract text from PDFs and generate embeddings
+```python
+text = extract_text_from_pdf('path_to_your_pdf.pdf')
+chunks = chunk_text_by_sentence(text)
+embeddings = generate_embeddings(chunks)
+```
+2. Refine user queries and retrieve relevant text chunks:
+```python
+user_id = "user123"
+refined_query = refine_query(query,user_id)
+
+result = handle_user_query(refined_query,user_id)
+
+print_matching_chunks(result, text_chunks)
 ```
