@@ -51,15 +51,11 @@ This repository contains a QA bot for PDF files. The bot extracts text from PDF 
 ## Usage
 ### Extract Text from PDF
 To extract text from a PDF file, use the following function:
-```python
-from your_module import extract_text_from_pdf
-
 text = extract_text_from_pdf('path_to_your_pdf.pdf')
 print(text)
 
 ### Segment Text into Chunks
 To generate segment text into chunks below method is used:
-```python
 text_chunks = chunk_text_by_sentence(text)
 
 ### Generate Embeddings
@@ -85,8 +81,8 @@ gpt_model = GPT2LMHeadModel.from_pretrained(model_name)
 
 ### Query the Vector Database and Get refine query to perform search
 To query integrate GPT model and vector db,  use the following functions:
-To refine query using gpt model below function can be used:
+##### To refine query using gpt model below function can be used:
 refine_query_more(userQuery)
 
-To query vector db below function can be used:
+##### To query vector db below function can be used:
 query_pinecone(userQuery)
