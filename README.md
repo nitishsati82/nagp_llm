@@ -117,10 +117,7 @@ embeddings = generate_embeddings(text_chunks)
 ```
 2. Refine user queries and retrieve relevant text chunks:
 ```python
-user_id = "user123"
-refined_query = refine_query(query,user_id)
-
-result = handle_user_query(refined_query,user_id)
-
+refined_query = refine_query(query)
+result = query_pinecone(refined_query)
 print_matching_chunks(result, text_chunks)
 ```
