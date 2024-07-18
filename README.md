@@ -80,7 +80,7 @@ result = save_embedding(query)
 ### Integrate GPT model
 To integrate GPT model, use the following code:
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
-# Load pre-trained GPT-2 model and tokenizer
+##### Load pre-trained GPT-2 model and tokenizer
 ```python
 model_name = "gpt2"
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
@@ -112,8 +112,8 @@ The system architecture consists of the following components:
 1. Extract text from PDFs and generate embeddings
 ```python
 text = extract_text_from_pdf('path_to_your_pdf.pdf')
-chunks = chunk_text_by_sentence(text)
-embeddings = generate_embeddings(chunks)
+text_chunks = chunk_text_by_sentence(text)
+embeddings = generate_embeddings(text_chunks)
 ```
 2. Refine user queries and retrieve relevant text chunks:
 ```python
