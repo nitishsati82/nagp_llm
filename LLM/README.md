@@ -3,7 +3,7 @@
 
 This repository contains a QA bot for PDF files. The bot extracts text from PDF files, generates embeddings, and stores them in a vector database. Users can query the system, which retrieves relevant text chunks based on similarity scores. The system also integrates with a GPT model for refining user queries.
 ### Github code link: https://github.com/nitishsati82/nagp_llm/tree/main/LLM
-
+### Assignment video recording link: https://nagarro-my.sharepoint.com/:v:/p/nitish_sati/Eb2wgBznoBlLvXmcwPI0A5gBDsFEkmhIIESBGG37_7DiDw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vGT6mf
 ## Table of Contents
 1. [Features](#features)
 2. [Requirements](#requirements)
@@ -115,9 +115,43 @@ text = extract_text_from_pdf('path_to_your_pdf.pdf')
 text_chunks = chunk_text_by_sentence(text)
 embeddings = generate_embeddings(text_chunks)
 ```
-2. Refine user queries and retrieve relevant text chunks:
+2. Refine user queries / retrieve relevant text chunks and analyze the result:
 ```python
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.metrics import precision_score, recall_score, f1_score
+
+def run_search_query(query):
+    # Use the query_pinecone function to get results
+    result = query_pinecone(query)
+    # Assuming result['matches'] is a list of ScoredVector objects
+    if 'matches' in result:
+        return result['matches']  # Return all matches for inspection
+    else:
+        return []
+
+def analyze_results(matches):
+    # Extract scores
+    scores = [match['score'] for match in matches]
+
+    # Plot scores
+    plt.figure(figsize=(10, 6))
+    plt.plot(scores, marker='o', linestyle='-', color='b')
+    plt.title('Match Scores')
+    plt.xlabel('Match Index')
+    plt.ylabel('Score')
+    plt.show()
+
+    # Print top 5 matches
+    top_matches = sorted(matches, key=lambda x: x['score'], reverse=True)[:5]
+    for match in top_matches:
+        print(f"ID: {match['id']}, Score: {match['score']}")
+
+    # Calculate average score
+    average_score = np.mean(scores)
+    print(f"Average Score: {average_score}")
+
 refined_query = refine_query(query)
-result = query_pinecone(refined_query)
-print_matching_chunks(result, text_chunks)
+matches = run_search_query(refined_query)
+analyze_results(matches)
 ```
